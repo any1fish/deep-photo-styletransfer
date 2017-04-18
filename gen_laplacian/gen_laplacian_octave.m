@@ -2,6 +2,9 @@ addpath matting/
 addpath gaimc/
 N = 60;
 
+pkg install -forge image;
+pkg load image;
+
 for i = 1:N
     prefix = '../examples/input/';
     in_name = [prefix 'in' int2str(i) '.png']; 
@@ -12,7 +15,7 @@ for i = 1:N
     size(input)
     
     [h w c] = size(input);
-
+    
     disp('Compute Laplacian');
     A = getLaplacian1(input, zeros(h, w), 1e-7, 1);
     
@@ -27,6 +30,6 @@ for i = 1:N
     Aj = ci;
     Aval = ai;
     CSR = [Ai, Aj, Aval];
-    save(['Input_Laplacian_3x3_1e-7_CSR' int2str(i) '.mat'], 'CSR');
+    save("-v7",['Input_Laplacian_3x3_1e-7_CSR' int2str(i) '.mat'], 'CSR');
  
 end 
